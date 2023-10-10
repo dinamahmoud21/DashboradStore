@@ -1,0 +1,236 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">داش بورد</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="./">الرئيسية/</a></li>
+        <li class="breadcrumb-item active" aria-current="page"></li>
+    </ol>
+</div>
+<div class="col-xl-12 col-lg-12">
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary"> انشاء فاتورة مشتريات</h6>
+        </div>
+
+
+        <div class="card-body">
+            <div>
+                <form [formGroup]="UpdateSaleForm">
+                    <div class="row">
+                        <div class="d-flex flex-row justify-content-between  fulldata  p-2">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"> التاريخ :</label>
+                                    {{today | date:'dd/MM/yyyy '}}
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"> الوقت :</label>
+
+                                    {{today |date:'HH:mm:ss'}}
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for="formGroupExampleInput2" class="mb-2"> رقم الفاتورة</label>
+                                    <input type="text" class="form-control " formControlName="BillNumber" readonly
+                                        [disabled]="true" [ngModel]="getBillNumber()">
+
+
+                                </div>
+
+                            </div>
+                            <div class="float-right  d-flex flex-column justify-content-end col-md-4">
+                                <div class="col-md-12 form-group mt-3 ">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">اسم العميل</label>
+
+                                        <input type="text" formControlName="Clientname" class="form-control">
+
+
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput"> رقم التليفون </label>
+                                        <input type="text" formControlName="phone" class="form-control">
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group mt-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput"> العنوان </label>
+                                        <input type="text" formControlName="address" class="form-control">
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <!-- <div class="form-group mt-3 col-md-12">
+                                    <label for="formGroupExampleInput"> اسم التصنيف</label>
+                                    <ng-select [items]="product" bindValue="productcat" [searchable]="true"
+                                        [required]="true" formControlName="productcat" bindLabel="productcat" #item
+                                        (ngModelChange)="getProductcat($event)">
+
+                                    </ng-select>
+                                    <span
+                                        *ngIf="! UpdateSaleForm.controls['productcat'].valid && UpdateSaleForm.controls['productcat'].touched"
+                                        class="text-danger">
+                                        يجب ان تختار التصنيف
+                                    </span>
+
+
+                                </div>-->
+
+                            </div>
+                        </div>
+                        <div class="mt-2 col-md-12">
+                            <div class="col-md-8">
+                                <ng-select [items]="product" bindLabel="productname" bindValue="productname"
+                                    formControlName="selectvalue" [searchable]="true" [required]="true" class="mt-4"
+                                    placeholder="ابحث عن المنتج الذي تريد اضافته الي الفاتورة">
+                                </ng-select>
+                                <span
+                                    *ngIf="! UpdateSaleForm.controls['selectvalue'].valid && UpdateSaleForm.controls['selectvalue'].touched"
+                                    class="text-danger">
+                                    من فضلك ابحث عن المنتج
+                                </span>
+                            </div>
+                            <div class="mt-4 col-md-4">
+                                <button class="btn btn-success" (click)="selecteproduct()">اضافة المنتجات الي
+                                    الفاتورة</button>
+                            </div>
+                        </div>
+                        <div class=" p-3" *ngIf="  selectedvalue !=null " class="table-header">
+
+
+
+                            <table id="producttable"
+                                class="table table-bordered  table-hover table-responsive width-auto"
+                                formArrayName="SaleProduct">
+
+                                <thead class="table-head width-auto">
+                                    <tr>
+                                        <th>م </th>
+                                        <th>الباركود المنتج</th>
+                                        <th>اسم المنتج</th>
+                                        <th>سعر البيع </th>
+                                        <th>الكمية</th>
+                                        <th>اجمالي السعر</th>
+                                        <th>حذف</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr *ngFor="let buy of SaleProduct.controls let i =index " [formGroupName]="i">
+
+                                        <td>
+                                            {{i +1}}
+                                        </td>
+                                        <td>
+                                            <input formControlName="productcode" class="border-0 bg-white" readonly>
+
+                                        </td>
+                                        <td>
+
+                                            <input formControlName="productname" class="border-0 bg-white" readonly>
+
+
+                                        </td>
+                                        <td>
+                                            <input formControlName="saleprice" class="border-0 bg-white" readonly>
+
+                                        </td>
+
+                                        <td>
+                                            <input formControlName="mount" class="form-control">
+                                            <span *ngIf="buy.value.mount > buy.value.Totalmount"
+                                                class=" text-danger">الكمية المتوفر
+                                                {{buy.value.Totalmount}}</span>
+
+
+                                        </td>
+                                        <td>
+                                            <input formControlName="Total" [ngModel]="Total(buy.value.saleprice ,
+                                            buy.value.mount)" class="border-0 bg-white" readonly>
+                                        </td>
+
+                                        <td>
+                                            <button class="btn btn-danger" (click)="deleteRow(i)"><i
+                                                    class="fa fa-trash-alt"></i></button>
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </tbody>
+
+
+
+                            </table>
+                            <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12">
+
+                                <button class="btn btn-success " (click)="findsum(SaleProductControls)"> اضافة
+                                </button>
+                            </div>
+                            <div>
+                                <div
+                                    class="form-group float-right mt-5 d-flex flex-column align-items-end  justify-content-end col-md-12">
+                                    <table class="col-md-6 table-bordered">
+
+
+                                        <tr>
+                                            <th scope="3">الاجمالي</th>
+
+                                            <td>
+                                                <input formControlName="FullTotal" class="form-control"
+                                                    [ngModel]="fullTotal">
+
+                                            </td>
+                                        </tr>
+                                        <tr class="mt-2">
+                                            <th scope="3">قيمة الخصم </th>
+
+                                            <td>
+                                                <input formControlName="discount" class="form-control"
+                                                    [(ngModel)]="discount">
+
+                                            </td>
+                                        </tr>
+                                        <tr class="mt-2">
+                                            <th scope="3"> الاجمالي بعد الخصم</th>
+
+                                            <td>
+                                                <input [ngModel]="totalafterDiscount(discount)"
+                                                    formControlName="discountTotal" class="form-control">
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+
+
+                                <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12">
+                                    <button class="btn btn-success m-2" type="submit" (click)=" AddBuyProduct()"
+                                        [disabled]="!UpdateSaleForm.valid">اضافة</button>
+                                    <button class="btn btn-danger m-2">الغاء</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class=" d-flex flex-row justify-content-between mb-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> لوحة تحكم </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="../../home" style="text-decoration:none">الرئيسية/</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a routerLink="../AddExpert"
+                style="text-decoration:none"> اضافة مورد</a></li>
+
+    </ol>
+</div>
+<div class="col-xl-12 col-lg-12">
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">اضافة مورد جديد</h6>
+        </div>
+
+
+        <div class="card-body" *ngIf="!submitted">
+
+            <form [formGroup]="AddExpertForm">
+                <div class="d-flex flex-column justify-content-center col-md-7 addForm">
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> اسم المورد</label>
+                                <input type="text" class="form-control" placeholder="اسم المورد"
+                                    formControlName="ExpertName" [(ngModel)]="Experters.ExpertName">
+                                <span
+                                    *ngIf="! AddExpertForm.controls['ExpertName'].valid && AddExpertForm.controls['ExpertName'].touched"
+                                    class="text-danger">
+                                    من فضلك ادخل اسم المورد</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> العنوان </label>
+                                <input type="text" class="form-control" placeholder="عنوان المورد "
+                                    formControlName="Address" [(ngModel)]="Experters.Address">
+                                <span
+                                    *ngIf="! AddExpertForm.controls['Address'].valid && AddExpertForm.controls['Address'].touched"
+                                    class="text-danger">
+                                    من فضلك ادخل عنوان المورد </span>
+                            </div>
+                        </div>
+                        <div formArrayName="Phone" class="  col-md-12">
+                            <div *ngFor="let p of Phone.controls ; let i=index "
+                                class="form-group d-flex flex-row justify-content-between">
+                                <div class="col-md-11">
+                                    <div class=" mt-3">
+                                        <label for="formGroupExampleInput" class="mb-2"> رقم تليفون المورد </label>
+                                        <input type="text" class="form-control" placeholder="رقم تليفون المورد "
+                                            [formControlName]="i" minlength="11">
+
+                                        <span
+                                            *ngIf="! AddExpertForm.controls['Phone'].valid && AddExpertForm.controls['Phone'].touched"
+                                            class="text-danger">
+                                            من فضلك ادخل رقم تليفون المورد</span>
+
+                                    </div>
+
+
+
+
+                                </div>
+                                <div>
+                                    <button class="btn btn-danger col-md-1 mt-5" (click)="deleteinput(i)" *ngIf="i > 0"
+                                        style="width:auto"><i class="fa fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-md-1 mt-5" class="addbuton">
+                                <button class="btn btn-primary" (click)="addPhone()"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12">
+                    <button class="btn btn-warning m-2 text-white" type="submit" (click)="AddExpert()"
+                        [disabled]="!AddExpertForm.valid">اضافة</button>
+                    <button class="btn btn-danger m-2">الغاء</button>
+                </div>
+
+            </form>

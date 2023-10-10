@@ -1,0 +1,23 @@
+<div class="row mb-3">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4" *ngFor="let Exp of  Expert ; let i =index">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-danger"></i>
+                    </div>
+                    <div class="col mr-2">
+                        <div class="h8 mb-0 font-weight-bold text-gray-800">{{Exp.ExpertName}}</div>
+                        <div class="mt-4 mb-0 text-muted text-xs  float-left">
+                            <a [routerLink]="['../','ExportDetail',Exp.id]"><button class="btn btn-warning text-white">
+                                    التفاصيل
+                                </button></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,139 @@
+<div class="col-xl-12 col-lg-12">
+    <div class="card mb-4">
+
+
+        <div class="card-body mt-5 col-md-12 justify-content-center d-flex
+    ">
+            <form [formGroup]="RegisterForm" class="col-md-6 d-flex flex-row justify-content-center form-design">
+                <div class="logindesign col-md-4">
+                    <div class="design-details">
+                        <div class=" text-white text-center m-auto">
+
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-8  addForm">
+                    <div class="row">
+
+                        <h4 class="text-center" style="color:#0dcaf0 "> أنشاء حساب</h4>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> الاسم </label>
+                                <input type="text" class="form-control" placeholder="اسم  المستخدم"
+                                    formControlName="displayName">
+                            </div>
+                            <span
+                                *ngIf="! RegisterForm.controls['displayName'].valid && RegisterForm.controls['displayName'].touched"
+                                class="text-danger">
+                                من قضلك ادخل اسم المستخدم</span>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> البريد الالكتروني </label>
+                                <input type="text" class="form-control" placeholder=" البريد الالكتروني "
+                                    formControlName="email" [required]="true">
+                            </div>
+                            <span
+                                *ngIf="! RegisterForm.controls['email'].valid && RegisterForm.controls['email'].touched"
+                                class="text-danger">
+                                من فضلك ادخل البريد الالكتروني</span>
+
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> الصورة الشخصية </label>
+                                <ngx-dropzone class="custom-dropzone" ngx-dropzone [accept]="'image/*'"
+                                    (change)="selectFile($event)" [multiple]='false'>
+                                    <ngx-dropzone-label>اسحب الصورة</ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+
+                                <button class="btn btn-success btn-sm uploadbtn" [disabled]="!files" [hidden]="!files"
+                                    (click)="upload()">
+                                    تحميل
+                                </button>
+
+
+                                <div *ngIf="currentFileUpload" class="progress mt-2">
+
+                                    <div class="progress-bar progress-bar-info" role="progressbar"
+                                        attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                                        [ngStyle]="{ width: percentage + '%' }">
+                                        {{ percentage }}%
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> كلمة المرور </label>
+                                <input type="password" class="form-control" placeholder="  كلمة المرور  "
+                                    formControlName="password">
+                            </div>
+                            <span
+                                *ngIf="! RegisterForm.controls['password'].valid && RegisterForm.controls['password'].touched"
+                                class="text-danger">
+                                من فضلك ادخل كلمة المرور</span>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mt-3">
+                                <label for="formGroupExampleInput" class="mb-2"> تاكيد كلمة المرور </label>
+                                <input type="password
+                                " class="form-control" placeholder="  تاكيد كلمة المرور "
+                                    formControlName="confpassword">
+                            </div>
+                            <span
+                                *ngIf="! RegisterForm.controls['confpassword'].valid && RegisterForm.controls['confpassword'].touched"
+                                class="text-danger">
+                                من فضلك ادخل كلمة المرور</span>
+                            <span
+                                *ngIf="RegisterForm.controls['password'].value !=RegisterForm.controls['confpassword'].value "
+                                class="text-danger">
+                                كلمتين المرور غير متصابقين </span>
+                        </div>
+                        <div class="form-group float-right mt-5 mb-5 d-flex flex-row justify-content-end col-md-12">
+                            <button class="btn btn-warning text-white m-2" type="submit"
+                                [disabled]="RegisterForm.invalid" (click)="register()">انشاء
+                                حساب
+                            </button>
+
+
+                        </div>
+
+                        <hr>
+                        <div class="form-group  mt-5 d-flex flex-row col-md-12">
+                            <button class="btn  text-white m-2" type="submit" style="background:#0dcaf0 ;width:100%"
+                                (click)="register()">
+                                <a class="text-white" style="text-decoration:none" routerLink="/login"> تسجيل
+                                    الدخول</a>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </form>
+
+
+        </div>

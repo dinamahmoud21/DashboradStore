@@ -1,1 +1,146 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap-rtl/dist/css/bootstrap-rtl.min.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import 'jqwidgets-ng/jqwidgets/styles/jqx.base.css';
+@import 'ngx-toastr/toastr';
+html{
+
+    direction:rtl
+}
+.navbar-nav{
+    padding-right:0 !important
+}
+  .dataTables_wrapper .dataTables_filter {
+      margin-bottom: 2% !important;
+  }
+
+  .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid gray !important;
+      border-radius: 4px !important;
+      width:100%
+
+  }
+  .dataTables_wrapper .dataTables_filter input:focus{
+    border:none !important
+    
+  }
+ .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+     padding-right: 2px !important;
+ }
+ thead,
+ tbody,
+ tfoot,
+ tr,
+ td,
+ th{
+    font-size:12px
+ }
+ 
+ .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+ .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    border-radius: 50%;
+ }
+ .dataTables_wrapper .dataTables_filter input{
+    border: 1px solid #dee2e6 !important;
+        border-radius: 4px !important
+ }
+ 
+ .addbuton{
+    position: absolute;
+    left:0;
+    margin-top:10%;
+    top:2%
+ }
+ .addForm{
+    margin: auto;
+    float: none !important;
+    background: #f8f9fa;
+        padding: 4%;
+        box-shadow: 2px 2px 2px #e9ecef;
+        border-radius: 10px;
+    
+    
+ }
+ .addForm .col-md-11{
+    padding-right: 0 !important;
+ }
+ 
+.slick-dots li button:before {
+    font-size: 50px !important
+}
+.table-head{
+    background-color: #0dcaf0;
+    color:white;
+    font-weight: bold;
+}
+select{
+    border-radius: 10px;
+    padding: 5px;
+}
+@media(max-width:785px) {
+    .col-md-12 {
+        padding-left: 1%;
+        padding-right: 1%;
+    }
+
+                .addbuton {
+                    top: 15%;
+                    margin-top: 0
+                }
+}
+@media (min-width:785px) {
+    .fulldata {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding:1.5rem !important
+
+    }
+         .dataTables_wrapper {
+             background-color: #f9fafb;
+             padding: 2%;
+             border-radius: 10px;
+             box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.125);
+    
+         }
+    
+}
+.back{
+    float:left;
+    width:100%;
+    margin-bottom: 10px;
+}
+.back button{
+    float: left;
+    background-color: transparent;
+    border-color: none;
+}
+.dataTables_wrapper .dataTables_paginate{
+    border: 1px solid gray;
+        margin-top: 2%;
+}
+.dataTables_wrapper .dataTables_info{
+    margin-top:2%;
+}
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate{
+    font-size:12px
+}
+table.dataTable.no-footer{
+    border-bottom:none
+}
+.dt-buttons{
+    float:left !important
+}
+.dt-buttons button{
+    background: #0dcaf0 !important;
+        color: white !important;
+        border: white !important;
+        padding: 4px !important;
+        border-radius: 4px;
+    
+}

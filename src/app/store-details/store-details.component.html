@@ -1,0 +1,70 @@
+<div class="back">
+
+    <button class="btn  float-right" (click)=" backClicked()"><i class="fa fa-arrow-left"></i></button>
+</div>
+
+<div class="col-xl-12 col-lg-12">
+
+
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary"> {{store.storeName}}</h6>
+        </div>
+        <div class="card-body">
+            <div class="mb-3 col-md-4">
+                <div>
+                    <label class="mb-2">عنوان المخزن</label>
+                    <label class="form-control">{{store.Address}}</label>
+                </div>
+                <div>
+                    <label class="mb-2"> تليفون المخزن </label>
+                    <label class="form-control mb-2" *ngFor="let i of store.Phone">{{i}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 table-responsive" *ngIf="product.length  > 0 ">
+            <table datatable id="producttable" class="table table-bordered table-striped table-responsive  table-hov"
+                style="width:100%" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead class="table-head ">
+                    <tr>
+                        <th>م</th>
+                        <th> اسم المنتج</th>
+                        <th>كود المنتج</th>
+                        <th>سعر الشراء</th>
+                        <th>سعر الجملة</th>
+                        <th>سعر البيع</th>
+                        <th>كمية المشتريات</th>
+                        <th>كمية المبيعات</th>
+
+                        <th> الكمية المتوفرة</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <tr *ngFor=" let prod of product ; let i=index" class="text-right">
+                        <th>{{i +1}}</th>
+                        <td>{{prod.productname}}</td>
+                        <td>{{prod.productcode}}</td>
+                        <td>{{prod.price}}</td>
+                        <th>{{prod.buyprice}}</th>
+                        <td>{{prod.saleprice}}</td>
+                        <td>{{prod.BuyMount}}</td>
+                        <td>{{prod.saleMount}}</td>
+
+                        <td>{{prod.mount}}</td>
+
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>

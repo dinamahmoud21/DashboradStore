@@ -1,0 +1,242 @@
+<div class=" d-flex flex-row justify-content-between mb-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> لوحة تحكم </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="../../home" style="text-decoration:none">الرئيسية/</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a routerLink="../BuyReport"
+                style="text-decoration:none"> تقارير مشتريات</a></li>
+
+    </ol>
+</div>
+<div class="row">
+    <!-- Datatables -->
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">تقارير فواتير الشراء </h6>
+            </div>
+
+            <div class="table-responsive p-3">
+                <table datatable id="buyproducttable"
+                    class="table table-bordered table-striped table-hover table-responsive" style="width:100%"
+                    [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+
+                    <thead class="table-head">
+                        <tr>
+                            <th>م </th>
+                            <th>رقم الفاتورة </th>
+                            <th> اسم المورد </th>
+                            <th> اسم المخزن </th>
+                            <th>التاريخ</th>
+                            <th> تفاصيل </th>
+
+                            <th>العمليات</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of  GetAllBuyProduct ; let indexofproduct =index">
+                            <td>{{indexofproduct+1}}</td>
+                            <td>{{product.BillNumber}}</td>
+                            <td>{{product.exportname}}</td>
+                            <td>{{product.store}}</td>
+                            <td>{{product.date }}</td>
+
+                            <td><button class="btn btn-warning text-white" style="background:#000 ; border:none"
+                                    data-toggle="modal" data-target="#displaydata" (click)=" onSelect(product)">
+                                    <i class="fa fa-info-circle"></i></button></td>
+
+
+
+
+                            <td>
+                                <a routerLink="../updateBuyProduct/{{product?.id}}">
+                                    <button class="btn btn-warning btn-sm text-white "
+                                        style="border-radius:10px ; margin-left: 3px;" data-toggle="modal"
+                                        data-target="#updateModal"><i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                                <button class="btn btn-danger btn-sm text-white " (click)="deleteproduct(product)"
+                                    style="border-radius:10px"> <i class="fa fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- DataTable with Hover -->
+
+</div>
+
+<!--Display  Data of product list-->
+<!-- Modal -->
+<div class="modal fade" id="displaydata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role=" document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> تفاصيل الفاتورة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="  fulldata  p-2">
+
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"> التاريخ :</label>
+                                    {{selectedItem.date }}
+
+                                </div>
+
+                                <div class="form-group mt-4">
+                                    <label for="formGroupExampleInput2" class="mb-2"> رقم الفاتورة</label>
+                                    <input type="text" class="form-control " [(ngModel)]=" selectedItem.BillNumber"
+                                        readonly [disabled]="true">
+
+
+                                </div>
+
+                            </div>
+                            <div
+                                class="float-right  d-flex flex-column justify-content-end col-md-4   col-sm-12 col-xs-12">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput2">اسم المورد</label>
+                                        <label class="form-control">{{selectedItem.exportname }}</label>
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group mt-3 col-md-12">
+                                    <label for="formGroupExampleInput"> اسم المخزن</label>
+                                    <label class="form-control">{{selectedItem.store }}</label>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+
+
+
+
+
+
+                            <table id="producttable"
+                                class="table table-bordered  table-hover table-responsive width-auto">
+
+                                <thead class=" table-head width-auto ">
+                                    <tr>
+                                        <th>م </th>
+                                        <th>الباركود المنتج</th>
+                                        <th>اسم المنتج</th>
+                                        <th>سعر الجملة </th>
+                                        <th>الكمية</th>
+                                        <th>اجمالي السعر</th>
+                                        <th>السريال</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr *ngFor="let buy of selectedItem.BuyProduct  let i =index ">
+
+                                        <td>
+                                            {{i}}
+                                        </td>
+                                        <td>
+                                            {{buy.productcode}}
+
+                                        </td>
+                                        <td>
+
+                                            {{buy.productname}}
+
+
+                                        </td>
+                                        <td>
+                                            {{buy.saleprice}}
+                                        </td>
+
+                                        <td>
+                                            {{buy.mount}}
+
+                                        </td>
+                                        <td>
+
+                                            {{buy.Total}}
+                                        </td>
+                                        <td>
+                                            {{buy.serial}}
+                                        </td>
+
+
+
+
+                                    </tr>
+
+
+                                </tbody>
+
+
+
+                            </table>
+                        </div>
+
+                        <div
+                            class="form-group float-right mt-5 d-flex flex-column align-items-end  justify-content-end col-md-12">
+                            <table class="col-md-6 table-bordered">
+
+
+                                <tr>
+                                    <th scope="3">الاجمالي</th>
+
+                                    <td>
+                                        {{selectedItem.FullTotal}}
+                                    </td>
+                                </tr>
+                                <tr class="mt-2">
+                                    <th scope="3">قيمة الخصم </th>
+
+                                    <td>
+                                        {{selectedItem.discount}}
+
+                                    </td>
+                                </tr>
+                                <tr class="mt-2">
+                                    <th scope="3"> الاجمالي بعد الخصم</th>
+
+                                    <td>
+                                        {{selectedItem.discounttotal}}
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end display data-->
+<!--Row-->
+
+<!-- Modal Dialog-->

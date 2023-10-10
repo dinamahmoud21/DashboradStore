@@ -1,0 +1,21 @@
+.imagepreview{
+    width: 200px;
+    height: 200px;
+    padding: 7px;
+   
+}
+
+.uploadbtn{
+    position: absolute;
+    top:50%;
+    left: 50% ;
+    box-shadow: 2px 2px rgb(250, 246, 246);
+}
+.addcat{
+    margin-top:2px
+}
+@media(min-width:785px){
+.firstrow{
+    border-left: 3px dashed green;
+}
+}

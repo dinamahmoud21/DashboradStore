@@ -1,0 +1,7 @@
+.slick-wrapper {
+    width:auto;
+    margin: 20px auto;
+}
+.slick-dots li button:before{
+    font-size:50px !important
+}

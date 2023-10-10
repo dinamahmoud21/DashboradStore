@@ -1,0 +1,24 @@
+.topbar {
+    height: 3.375rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      z-index: 2;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+      width: 100%;
+  }
+  
+ .navbar-expand .navbar-nav .dropdown-menu{
+  position:static
+ }
+ .sidebar-toggle{
+      background: #0dcaf0;
+        color: white;
+        border-radius: 5px;
+        border: 1px solid white;
+ }
+ @media (min-width:785px){
+  .menu{
+    display:none
+  }
+ }

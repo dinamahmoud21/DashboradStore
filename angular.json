@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+           
             "outputPath": "dist/original-shop",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,22 +24,25 @@
               "src/assets"
             ],
             "styles": [
+
               "src/styles.css"
+
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                   "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                 "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 }
               ],
               "fileReplacements": [
@@ -90,12 +94,38 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./node_modules/bootstrap-rtl/dist/css/bootstrap-rtl.min.css",
+              "./node_modules/sweetalert2/src/sweetalert2.scss",
+               "./node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"  ,       
+          
+                "./node_modules/ngx-toastr/toastr.css" ,
+                 "./node_modules/slick-carousel/slick/slick.scss",  
+             "./node_modules/slick-carousel/slick/slick-theme.scss"  ,
+                 "src/styles.css"
+
             ],
-            "scripts": []
+            "scripts": [
+             
+             
+              "./node_modules/jquery/dist/jquery.min.js", 
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/jszip/dist/jszip.js",
+              "./node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "./node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "./node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "./node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "./node_modules/datatables.net-buttons/js/buttons.print.js",
+              "./node_modules/slick-carousel/slick/slick.min.js"  
+             
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "4218e9eb-8d37-42aa-a39a-3160413ff571"
   }
 }

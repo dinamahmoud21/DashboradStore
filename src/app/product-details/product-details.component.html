@@ -1,0 +1,178 @@
+<div class="d-flex  flex-row   justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800"> لوحة تحكم </h1>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../../home" style="text-decoration:none">الرئيسية/</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a routerLink="../ProductDetails"
+        style="text-decoration:none"> تقرير المنتجات</a></li>
+  </ol>
+</div>
+<div class="row">
+  <!-- Datatables -->
+  <div class="col-lg-12">
+    <div class="card mb-4">
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">تقارير المنتجات </h6>
+      </div>
+
+      <div class="p-3 table-responsive">
+        <table datatable id="producttable"
+          class="table table-bordered table-striped table-hover  table-responsive display nowrap"
+          [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" style="width:auto">
+
+          <thead class="table-head ">
+            <tr>
+              <th>م </th>
+              <th>الباركود المنتج</th>
+              <th>اسم المنتج</th>
+              <th>سعر الشراء </th>
+              <th>سعر الجملة</th>
+              <th> التصنيف</th>
+              <th>صورة المنتج</th>
+              <th>الكمية</th>
+              <th>العمليات</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of Products ; let indexofproduct =index">
+              <td>{{indexofproduct+1}}</td>
+              <td>{{product.productcode}}</td>
+              <td>{{product.productname}}</td>
+              <td>{{product.saleprice}}</td>
+              <td>{{product.buyprice}}</td>
+
+              <td>{{product.productcat}}</td>
+
+              <td><button type="button" class="btn btn-primary" style="background-color: #000" data-toggle="modal"
+                  data-target="#exampleModal" (click)="onselectproduct(product)">
+                  <i class="fa fa-image"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">صور {{product.productname}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                          <div ngxSlickItem *ngFor="let p of product.selectedFile" class="slide text-center">
+                            <img src="{{p.imageurl}}" class="m-auto" style="width:300px ">
+
+                          </div>
+                        </ngx-slick-carousel>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+              <td>{{product.mount}}</td>
+
+
+
+              <td><button class="btn btn-warning btn-sm text-white " style="border-radius:10px ; margin-left: 3px;"
+                  data-toggle="modal" data-target="#updateModal" (click)="onSelect(product)"><i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm text-white " style="border-radius:10px"
+                  (click)=" deleteproduct(product)"><i class="fa fa-trash-alt"></i> </button>
+              </td>
+            </tr>
+
+          </tbody>
+
+
+
+        </table>
+
+      </div>
+    </div>
+  </div>
+  <!-- DataTable with Hover -->
+
+</div>
+
+<!--Row-->
+
+<!-- Modal Dialog-->
+<div class="modal fade  " id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> تعديل المنتج</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="mt-5 col-md-12 m-auto" [formGroup]="updateform">
+          <div class="form-row">
+            <div class="form-group col-md-12 ">
+              <label>التصنيف</label>
+              <input readonly formControlName="productcat" class="form-control " required="true">
+
+
+            </div>
+
+            <div class="form-group col-md-12 mt-3">
+              <label>اسم المنتج</label>
+              <input type="text" class="form-control" formControlName="productname" required="true">
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label>الباركود</label>
+              <input type="number" class="form-control" placeholder="الباركود" formControlName="productcode"
+                required="true">
+
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label>سعر البيع</label>
+              <input type="number" class="form-control" placeholder="سعر البيع" formControlName="saleprice"
+                required="true">
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label for="inputAddress2 col-md-12">سعر الجملة </label>
+              <input type="number" class="form-control" placeholder="سعر الجملة" formControlName="buyprice"
+                required="true">
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label for="inputAddress2 col-md-12"> الكمية </label>
+              <input type="number" class="form-control" placeholder="سعر الجملة" formControlName="mount" readonly>
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label for="inputAddress2 col-md-12"> الملاحظات </label>
+              <textarea class="form-control" formControlName="notice">
+              </textarea>
+            </div>
+            <div class="form-group col-md-12 mt-3">
+              <label for="inputAddress2 col-md-12"> صورة المنتج </label>
+              <div *ngFor="let i of selectedItem.selectedFile">
+                <img [src]="i.imageurl" class="img-fluid">
+
+              </div>
+
+
+            </div>
+
+            <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12 ">
+              <button type="submit" class="btn btn-warning m-2  text-white " id="closeModal" data-dismiss="modal"
+                (click)="updateproduct()">تعديل </button>
+              <button class="btn btn-danger m-2" data-dismiss="modal">الغاء </button>
+
+
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

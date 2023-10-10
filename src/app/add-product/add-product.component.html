@@ -1,0 +1,173 @@
+<div class="d-flex  flex-row   justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800"> لوحة تحكم </h1>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="../../home" style="text-decoration:none">الرئيسية/</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a routerLink="../addProduct" style="text-decoration:none">
+        اضافة المنتجات</a></li>
+  </ol>
+</div>
+<div class="col-xl-12 col-lg-12">
+  <div class="card mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+      <h6 class="m-0 font-weight-bold text-primary">اضافة منتج</h6>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <div *ngIf="!submitted">
+          <form [formGroup]="addForm" class="mt-5 col-md-12 m-auto">
+            <div class="form-row col-md-12">
+              <div class="col-lg-6 col-md-12 firstrow ">
+                <div class="col-md-12">
+                  <div class="form-group col-md-11">
+                    <label for="inputState">التصنيف</label>
+                    <ng-select [items]="cat2" bindLabel="catlists" autofocus bindValue="catlists"
+                      formControlName="productcat" [searchable]="true" [required]="true">
+
+
+                    </ng-select>
+
+                  </div>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary col-md-1 mt-4" data-toggle="modal"
+                    data-target="#exampleModalLong">
+                    <i class="fa fa-plus text-white"></i>
+                  </button>
+
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" data-dismiss="modal">
+                          اضافة تصنيف جديد
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form [formGroup]="form">
+                          <div formArrayName="catlists">
+                            <div *ngFor="let cat of Catlists?.controls let i =index ">
+                              <div class="form-group col-md-11 mt-3">
+                                <input type="text" [formControlName]="i" placeholder="" class="form-control addcat"
+                                  id={{i}} (input)="inputChanged($event)" />
+                              </div>
+                              <button class="btn btn-danger col-md-1 mt-3" (click)=" removeinput(i)"><i
+                                  class="fa fa-trash-alt"></i></button>
+                            </div>
+                          </div>
+
+                          <button (click)="addcategory()" class="btn btn-primary mt-3">
+                            <i class="fa fa-plus"></i>
+
+                          </button>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                          الغاء
+                        </button>
+                        <button type="button" class="btn btn-primary" (click)="saveCatlist()" data-dismiss="modal">
+                          حفظ
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-12 mt-3">
+                    <label for="inputEmail4">اسم المنتج</label>
+                    <input type="text" class="form-control" name="productname" placeholder="اسم المنتج"
+                      formControlName="productname" />
+                    <span *ngIf="! addForm.controls['productname'].valid && addForm.controls['productname'].touched"
+                      class="text-danger">
+                      من فضلك ادخل اسم المنتج</span>
+
+                  </div>
+                  <div class="form-group col-md-12 mt-3">
+                    <label for="inputPassword4">الباركود</label>
+                    <input type="number" class="form-control" name="productcode" placeholder="الباركود"
+                      formControlName="productcode" />
+                    <span *ngIf="! addForm.controls['productcode'].valid && addForm.controls['productcode'].touched"
+                      class="text-danger">
+                      من فضلك ادخل باركود المنتج</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-12 mt-3">
+                  <label for="inputAddress">سعر البيع</label>
+                  <input type="number" class="form-control" name="saleprice" placeholder="سعر البيع"
+                    formControlName="saleprice" />
+                  <span *ngIf="! addForm.controls['saleprice'].valid && addForm.controls['saleprice'].touched"
+                    class="text-danger">
+                    من فضلك ادخل سعر المنتج</span>
+                </div>
+                <div class="form-group col-md-12 mt-3">
+                  <label for="inputAddress2 col-md-12">سعر الجملة </label>
+                  <input type="number" class="form-control" name="buyprice" placeholder="سعر الجملة" ngModel
+                    formControlName="buyprice" />
+                  <span *ngIf="! addForm.controls['buyprice'].valid && addForm.controls['buyprice'].touched"
+                    class="text-danger">
+                    من فضلك اخل سعر الجملة</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group col-md-12">
+                  <label for="inputAddress2 col-md-12"> صورة المنتج</label>
+                  <div class="col-md-12">
+                    <ngx-dropzone (change)="selectFile($event)">
+                      <ngx-dropzone-label>اسحب الصورة</ngx-dropzone-label>
+                      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
+                        [removable]="true" (removed)="onRemove(f)" [file]="f">
+                        <ngx-dropzone-label>
+                          <img [src]="url">
+                        </ngx-dropzone-label>
+
+                      </ngx-dropzone-image-preview>
+                    </ngx-dropzone>
+
+                    <button class="btn btn-success btn-sm uploadbtn" [disabled]="files== null" [hidden]="files==null"
+                      (click)="upload()">
+                      تحميل
+                    </button>
+
+                    <div *ngIf="currentFileUpload" class="progress mt-2">
+                      <div class="progress-bar progress-bar-info" role="progressbar"
+                        attr.aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"
+                        [ngStyle]="{ width: percentage + '%' }">
+                        {{ percentage }}%
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12 mt-3">
+                    <label>الملاحظات</label>
+                    <textarea class="form-control" name=" notice" rows="3" style="resize: none"
+                      formControlName="notice"></textarea>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12">
+                <button type="submit" class="btn btn-warning text-white m-2" (click)="saveProduct()"
+                  [disabled]="!addForm.valid">اضافة</button>
+                <button class="btn btn-danger m-2">الغاء</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

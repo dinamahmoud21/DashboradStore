@@ -1,0 +1,12 @@
+.card:nth-child(1){
+    background-color: #ffc107;
+    color:white;
+    border-radius: 30px 0px;
+    font-weight: bold;
+}
+.card:nth-child(2) {
+    background-color: #8fd40f;
+    color: white;
+    border-radius: 30px 0px;
+    font-weight: bold;
+}

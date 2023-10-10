@@ -1,0 +1,41 @@
+<div class="col-xl-12 col-lg-12">
+    <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary"> تاكيد البريد الالكتروني</h6>
+        </div>
+
+
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-center col-md-7 addForm">
+                <div class="row">
+
+
+
+                    <div class="col-md-12">
+                        <h3> شكرا لتسجيل الدخول </h3>
+                        <div class="formGroup" *ngIf="auth.userData as user">
+                            <p class="text-center">تم ارسال رسالة لتاكيد البريد
+                                ةالالكتروني<strong>{{user.email}}</strong>.
+                            </p>
+                            <p class="text-center"> من فضلك اكد البريد الالكتروني</p>
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group float-right mt-5 d-flex flex-row justify-content-end col-md-12">
+                    <button class="btn btn-success m-2" type="submit" (click)="auth.SendVerificationMail()">تاكيد
+                    </button>
+
+                </div>
+                <div class="redirectToLogin">
+                    <span>Go back to?<span class="redirect" routerLink="/login"> Sign in</span></span>
+                </div>
+
+
+            </div>
