@@ -53,6 +53,7 @@
     "@types/datatables.net-buttons": "^1.4.7",
     "@types/jasmine": "~4.0.0",
     "@types/jquery": "^3.5.16",
+    "angular-cli-ghpages": "^1.0.7",
     "autoprefixer": "^10.4.14",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
