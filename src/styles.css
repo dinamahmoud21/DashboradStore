@@ -4,6 +4,7 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import 'jqwidgets-ng/jqwidgets/styles/jqx.base.css';
 @import 'ngx-toastr/toastr';
+
 html{
 
     direction:rtl
